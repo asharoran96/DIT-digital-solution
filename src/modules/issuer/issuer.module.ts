@@ -6,6 +6,7 @@ import { IssuerRepository } from "./repository/issuer.repository";
 @Module({
   imports: [],
   controllers: [IssuerController],
-  providers: [IssuerService,IssuerRepository]
+  providers: [IssuerService,IssuerRepository],
+  exports: [IssuerService]
 })
 export class IssuerModule{}

@@ -3,7 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { IssuerModule } from './modules/issuer/issuer.module';
-
+import { CredentialModule } from './modules/credential/credential.module';
 
 @Module({
   imports: [
@@ -13,7 +13,8 @@ import { IssuerModule } from './modules/issuer/issuer.module';
         envFilePath: '.env'
       }
     ),
-    IssuerModule
+    IssuerModule,
+    CredentialModule
   ],
   controllers: [AppController],
   providers: [AppService],

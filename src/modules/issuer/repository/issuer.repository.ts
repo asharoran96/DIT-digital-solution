@@ -13,7 +13,7 @@ export class IssuerRepository {
 
     private getAllIssuer() {
         if (!fs.existsSync(this.issuersFilePath)) return [];
-        const issuersData = fs.readFileSync(this.issuersFilePath, 'utf-8');
+        const issuersData = fs.readFileSync(this.issuersFilePath, 'utf8');
         return JSON.parse(issuersData);
     }
     private saveIssuer(issuers: IissuerDataRecored[]) {
@@ -21,13 +21,13 @@ export class IssuerRepository {
         return;
     }
     private getIssuerByCompanyName(companyName: string) {
-        const issuers: [] = this.getAllIssuer()
+        const issuers: IissuerDataRecored[] = this.getAllIssuer()
         const targetIssuer = issuers.find((issuer: IissuerDataRecored) => (String(issuer.companyName).trim() === String(companyName).trim()));
         if (targetIssuer) return false;
         else return true;
     }
     createIssuer(issuerData: CreateIssuerDTO) {
-        const issuers: any[] = this.getAllIssuer();
+        const issuers: IissuerDataRecored[] = this.getAllIssuer();
         const existIssuer = this.getIssuerByCompanyName(issuerData.companyName);
         if (!existIssuer) throw new ConflictException(`Issuer already exist with this ${issuerData.companyName} company name`);
         const newIssuers: IissuerDataRecored = { id: idGenerator(), companyName: issuerData.companyName, issuedCredentials: [] };
@@ -41,5 +41,4 @@ export class IssuerRepository {
         if (!targetIssuer) throw new NotFoundException(`Issuer not found with this id ${id}`);
         else return targetIssuer;
     }
-    //get issuer by crd info
 }

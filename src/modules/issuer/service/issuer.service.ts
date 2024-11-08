@@ -11,5 +11,4 @@ export class IssuerService {
   getById(id: string) {
     return this.issuerRepository.getIssuerById(id);
   }
-  //create an credentials and get issuer by crd info
 }
