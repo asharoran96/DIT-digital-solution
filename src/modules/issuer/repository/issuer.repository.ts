@@ -41,4 +41,5 @@ export class IssuerRepository {
         if (!targetIssuer) throw new NotFoundException(`Issuer not found with this id ${id}`);
         else return targetIssuer;
     }
+    //push crd to issuer arr
 }
