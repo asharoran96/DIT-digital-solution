@@ -6,10 +6,11 @@ import { CreateHolderReqDto } from "../dto/create-request.dto";
 @Controller('holders')
 export class HolderController {
     constructor(private readonly holderService: HolderService) { }
-    @Post('')
+    @Post()
     create(@Body(ValidationPipe) createHolderDto: CreateHolderReqDto) {
         return this.holderService.create(createHolderDto);
     };
+    
     @Post('invite')
     receiveInvitation(@Body()data: any){
         return this.holderService.receiveInvitation(data)

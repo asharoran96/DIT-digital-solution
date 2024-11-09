@@ -1,6 +1,13 @@
+import { IsArray, IsNotEmpty, IsString } from "class-validator";
+
 export class CreateHolderReqDto{
-    id:string;
-    credentials:Object;
+    // @IsString()
+    // id:string;
+    // @IsArray()
+    // credentials:Object;
+    @IsString()
+    @IsNotEmpty()
     name:string;
-    walletKey:string
+    // @IsString()
+    // walletKey:string
 }

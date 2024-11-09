@@ -6,8 +6,8 @@ import { InvitationResponseDto } from "../dto/invitation-response.dto";
 @Controller('verifiers')
 export class VerifierController{
     constructor(private readonly verifierService: VerifierService){}
-    @Post('')
-    create(@Body() createVerifierReqDto: CreateVerifierReqDto){
+    @Post()
+    create(@Body(ValidationPipe) createVerifierReqDto: CreateVerifierReqDto){
         return this.verifierService.create(createVerifierReqDto);
     }
 

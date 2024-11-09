@@ -42,4 +42,14 @@ export class IssuerRepository {
         else return targetIssuer;
     }
     //push crd to issuer arr
+    addCrdToIssuer(issuerId: string , crdId: string){
+        const issuers = this.getAllIssuer()
+        const _existIssuer: IissuerDataRecored = issuers.find((issuer) => String(issuer.id).trim() === issuerId.trim());
+        if(_existIssuer) {
+            _existIssuer.issuedCredentials.push(crdId)
+            this.saveIssuer(issuers)
+            return true
+        }
+        else throw new NotFoundException('Issuer with this Id not exist')
+    }
 }

@@ -1,37 +1,45 @@
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import * as fs from 'fs'
-import path from "path";
-import { idGenerator } from "src/utils/id-generator.util";
-import { CreateHolderReqDto } from "../dto/create-request.dto";
+import * as path from "path";
+import { idGenerator, walletKeyGenerator } from "src/utils/id-generator.util";
+import { ICreateHolder } from "../interface/create-holder.interface";
 @Injectable()
 export class HolderRepository{
     private readonly holderFilePath = path.join(__dirname, '../../..', 'data/holder.data.json');
+
     private getAll() {
         if (!fs.existsSync(this.holderFilePath)) return [];
         const holdersData = fs.readFileSync(this.holderFilePath, 'utf8');
         return JSON.parse(holdersData);
     }
-    private saveHolder(holders: CreateHolderReqDto[]) {
+    private saveHolder(holders: ICreateHolder[]) {
         fs.writeFileSync(this.holderFilePath, JSON.stringify(holders, null, 2));
         return;
     }
-    create(holderDat: CreateHolderReqDto) {
-        const Holders: CreateHolderReqDto[] = this.getAll();
-        const existHolder = this.existVerifierById(holderDat.id);
-        if (existHolder) throw new ConflictException(`Holder already exist with this ${holderDat.id} id`);
-        const newHolder: CreateHolderReqDto = { ...holderDat, id: idGenerator(), credentials: [] }; // for the wallet key generate anything
-        Holders.push(newHolder);
-        this.saveHolder(Holders);
+    create(holderName: string) {
+        const holders: ICreateHolder[] = this.getAll();
+        console.log(holders)
+        const existHolder = this.existHolderByName(holderName);
+        if (existHolder) throw new ConflictException(`Holder already exist with this ${holderName} name`);
+        const newHolder: ICreateHolder = { name: holderName, id: idGenerator(), credentials: [], walletKey: walletKeyGenerator(holderName) }; // for the wallet key generate anything
+        holders.push(newHolder);
+        this.saveHolder(holders);
         return newHolder;
     }
-    existVerifierById(id: string) {
+    existHolderByName(name: string) {
         const holders: [] = this.getAll()
-        const targetHolder = holders.find((holder: CreateHolderReqDto ) => (String(holder.id) === String(id)));
-        if (!targetHolder) throw new NotFoundException(`Holder not found with this id ${id}`);
-        return targetHolder;
+        const targetHolder = holders.find((holder: ICreateHolder ) => (String(holder.name) === String(name)));
+        if (!targetHolder) return false;
+        // throw new NotFoundException(`Holder not found with this name ${name}`);
+        else return targetHolder;
     }
 
-
+    getHolderById(id: string) {
+        const holders: [] = this.getAll()
+        const targetHolder = holders.find((holder: ICreateHolder) => (String(holder.id) === String(id)));
+        if (!targetHolder) throw new NotFoundException(`Holder not found with this id ${id}`);
+        else return targetHolder;
+    }
     // push crd on his crd 
     //change the crd status
     //get crd by id from the holder's crd list

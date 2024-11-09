@@ -26,10 +26,9 @@ export class CredentialsRepository{
     }
     public create(createdCrdDto: CreateCredentialsDto){
         const crds: ICrdRecordSchema[] = this.loadAll();
-        const _existCrd = this.checkExistById(createdCrdDto.id)
-        if(_existCrd) throw new ConflictException('this Credential id already exist');
-        //TODO: work in expiry date to make it like after 30 min expired
-        const newCrd: ICrdRecordSchema = {id: idGenerator(),expiryDate: new Date(), ...createdCrdDto};
+        const creationDate = new Date();
+        const expiryDate = new Date(creationDate.getTime() + 15 * 60000); //after 15 min expired
+        const newCrd: ICrdRecordSchema = { ...createdCrdDto,id: idGenerator(),creationDate, expiryDate};
         crds.push(newCrd);
         this.saveNewCrd(crds);
         return newCrd;

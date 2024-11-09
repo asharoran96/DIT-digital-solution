@@ -11,4 +11,7 @@ export class IssuerService {
   getById(id: string) {
     return this.issuerRepository.getIssuerById(id);
   }
+  addCrdToIssuer(issuerId: string, crdId:string){
+    return this.issuerRepository.addCrdToIssuer(issuerId, crdId);
+  }
 }

@@ -1,8 +1,12 @@
-import { CreateVerifierReqDto } from "src/modules/verifier/dto/create-request.dto";
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
-import * as fs from 'fs'
-import path from "path";
+import { IVerificationArrRecord } from "../interface/verification-record.interface";
+import { IholderVerificationRecord } from "../interface/verf-holder-crd.interface";
+import { ICreateVerifier } from "../interface/create-verifier.interface";
+import { InvitationStatus } from "../enum/iveitation-status.enum";
 import { idGenerator } from "src/utils/id-generator.util";
+import * as path from "path";
+import * as fs from 'fs';
+
 @Injectable()
 export class VerifierRepository{
     private readonly verifierFilePath = path.join(__dirname, '../../..', 'data/verifier.data.json');
@@ -11,25 +15,53 @@ export class VerifierRepository{
         const verifiersData = fs.readFileSync(this.verifierFilePath, 'utf8');
         return JSON.parse(verifiersData);
     }
-    private saveVerifier(verifiers: CreateVerifierReqDto[]) {
+    private saveVerifier(verifiers: ICreateVerifier[]) {
         fs.writeFileSync(this.verifierFilePath, JSON.stringify(verifiers, null, 2));
         return;
     }
-    create(verifierData: CreateVerifierReqDto) {
-        const verifiers: CreateVerifierReqDto[] = this.getAll();
-        const existVerifier = this.existVerifierById(verifierData.id);
-        if (existVerifier) throw new ConflictException(`Verifer already exist with this ${verifierData.id} id`);
-        const newVerifier: CreateVerifierReqDto = { id: idGenerator(), name: verifierData.name, verifications: [] };
+    create(verifierName: string) {
+        const verifiers: ICreateVerifier[] = this.getAll();
+        const existVerifier = this.existVerifierByName(verifierName);
+        if (existVerifier) throw new ConflictException(`Verifer already exist with this ${verifierName} name`);
+        const newVerifier: ICreateVerifier = { id: idGenerator(), name: verifierName, verifications: [] };
         verifiers.push(newVerifier);
         this.saveVerifier(verifiers);
         return newVerifier;
     }
+    existVerifierByName(name: string) {
+        const verfiers: [] = this.getAll();
+        const targetVerfier = verfiers.find((verifier: ICreateVerifier ) => (String(verifier.name) === String(name)));
+        if (!targetVerfier) return false;
+        else return targetVerfier;
+    }
     existVerifierById(id: string) {
         const verfiers: [] = this.getAll()
-        const targetVerfier = verfiers.find((verifier: CreateVerifierReqDto ) => (String(verifier.id) === String(id)));
-        if (!targetVerfier) throw new NotFoundException(`Verfier not found with this id ${id}`);
-        return targetVerfier;
+        const targetVerfier = verfiers.find((verifier: ICreateVerifier ) => (String(verifier.id) === String(id)));
+        if (!targetVerfier)  throw new NotFoundException(`Verifier not found with this id ${id}`);
+        else return targetVerfier;
     }
+
     // push a crd
+    addCrdToVerifier(verifierId: string , holderId:string, crdData: any){
+        const verifiers : []= this.getAll();
+        const _existVerifier: ICreateVerifier = verifiers.find((verifier: ICreateVerifier) => String(verifier.id).trim() === verifierId.trim());
+        if(_existVerifier) {
+            const verificationRecord = this.addToVerficationArr(holderId, crdData);
+            _existVerifier.verifications.push(verificationRecord);
+            this.saveVerifier(verifiers)
+            return true;
+        }
+        else throw new NotFoundException('Verifier with this Id not exist')
+    }
+    private addToVerficationArr(holderId: string, crdData:any){
+        const holderCrdRecord :IholderVerificationRecord= {...crdData, status: InvitationStatus.Received};
+        const verificationRecord:IVerificationArrRecord = {
+            holderId,
+            credentials: []
+        }
+        verificationRecord.credentials.push(holderCrdRecord);
+        return verificationRecord;
+    }
     //change status
+    // get crd by holder id
 }

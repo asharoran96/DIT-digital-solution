@@ -3,16 +3,30 @@ import { CreateCredentialsDto } from "../dto/credential.dto";
 import { CredentialsRepository } from "../repository/credentail.repository";
 import { IissuerDataRecored } from "src/modules/issuer/interface/issue-data-schems.interface";
 import { Injectable } from "@nestjs/common";
+import { HolderService } from "src/modules/holder/service/holder.service";
 
 
 @Injectable()
 export class CredentialsService{
     constructor(private readonly credRepo: CredentialsRepository
-     ,private readonly issuerService: IssuerService
+     ,private readonly issuerService: IssuerService,
+     private readonly holderService: HolderService
     ){}
 
     create(createCrdDto: CreateCredentialsDto){
-        const issuerNewCrd =  this.credRepo.create(createCrdDto);
+        return new Promise(async(resolve,reject)=>{
+            try {
+                const _existIssuer = await this.issuerService.getById(createCrdDto.issuerId);
+                const _existHolder = await this.holderService.getHolderById(createCrdDto.subject);
+                const issuerNewCrd =  await this.credRepo.create(createCrdDto);
+                await this.issuerService.addCrdToIssuer(issuerNewCrd.issuerId, issuerNewCrd.id);
+                // push to the verifier with status received
+                
+            } catch (error:any) {
+                reject(error)
+            }
+
+        })
          // the subject id should be the holder id HOLDER
          // check if that holder id is exist 
          // push them to the verifier array with {crd id , status: {expired , accepted, rejected , pending}, holderid}
