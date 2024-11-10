@@ -5,11 +5,73 @@ Issuers, issuers can issue credentials
 ## DIT digital solution highlevel workflow
 ![DIT workflow](./assets/digital-workflow-highlevel.png)
 
+## tree file 
+```
+├── README.md
+├── assets
+│   └── digital-workflow-highlevel.png
+├── data
+│   ├── credential.data.json
+│   ├── holder.data.json
+│   ├── issuer.data.json
+│   └── verifier.data.json
+├── digital-solution
+│   ├── Dockerfile
+│   ├── dist
+│   ├── nest-cli.json
+│   ├── node_modules
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── src
+    |––––modules
+        ├── credential
+        │   ├── controller
+        │   ├── credential.module.ts
+        │   ├── dto
+        │   ├── enum
+        │   ├── interface
+        │   ├── repository
+        │   └── service
+        ├── holder
+        │   ├── controller
+        │   ├── dto
+        │   ├── holder.module.ts
+        │   ├── interface
+        │   ├── repository
+        │   └── service
+        ├── issuer
+        │   ├── controller
+        │   ├── dto
+        │   ├── interface
+        │   ├── issuer.module.ts
+        │   ├── repository
+        │   └── service
+        ├── notification
+        │   ├── notification.gateway.ts
+        │   └── notification.module.ts
+        └── verifier
+            ├── controller
+            ├── dto
+            ├── enum
+            ├── interface
+            ├── repository
+            ├── service
+            └── verifier.module.ts
+            ├── test
+            ├── tsconfig.build.json
+            └── tsconfig.json
+├── docker-compose.yml
+├── env
+│   └── docker.env
+├── file_tree.txt
+└── package.json
+```
+
 ## Run the Application using terminal
 1. Clone the repository.
-2. go to digital-solution `cd digital-solution`
-3. Install dependencies: `npm install`
-4. Start the application: `npm run start`
+2. go to `cd digital-solution`
+2. Install dependencies: `npm install`
+3. Start the application: `npm run start`
 
 ## Test
 Run `npm test` to execute unit tests.
