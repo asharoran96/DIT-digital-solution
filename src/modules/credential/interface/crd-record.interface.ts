@@ -3,6 +3,8 @@ export interface ICrdRecordSchema {
     type: string,
     subject: string,
     issuerId: string,
+    status: string,
+    verifierId:string
     creationDate: Date,
     expiryDate: Date,
 

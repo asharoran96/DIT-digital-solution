@@ -1,13 +1,19 @@
-import { Module } from "@nestjs/common";
-import { HolderRepository } from "./repository/holder.repository";
-import { HolderService } from "./service/holder.service";
-import { HolderController } from "./controller/holder.controller";
-import { VerifierModule } from "../verifier/verifier.module";
+import { forwardRef, Module } from '@nestjs/common';
+import { VerifierModule } from '../verifier/verifier.module';
+import { CredentialModule } from '../credential/credential.module';
+import { NotificationModule } from '../notification/notification.module';
+import { HolderController } from './controller/holder.controller';
+import { HolderRepository } from './repository/holder.repository';
+import { HolderService } from './service/holder.service';
 
 @Module({
-    imports: [VerifierModule],
-    controllers: [HolderController],
-    providers: [HolderRepository, HolderService],
-    exports: [HolderService]
+  imports: [
+    forwardRef(() => CredentialModule),
+    VerifierModule,
+    NotificationModule,
+  ],
+  controllers: [HolderController],
+  providers: [HolderRepository, HolderService],
+  exports: [HolderService],
 })
-export class HodlerModule { }
+export class HodlerModule {}

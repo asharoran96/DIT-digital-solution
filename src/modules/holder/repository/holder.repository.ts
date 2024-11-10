@@ -5,12 +5,12 @@ import { idGenerator, walletKeyGenerator } from "src/utils/id-generator.util";
 import { ICreateHolder } from "../interface/create-holder.interface";
 @Injectable()
 export class HolderRepository{
-    private readonly holderFilePath = path.join(__dirname, '../../..', 'data/holder.data.json');
+    private readonly holderFilePath = path.join(__dirname, '../../../..', 'data/holder.data.json');
 
     private getAll() {
         if (!fs.existsSync(this.holderFilePath)) return [];
         const holdersData = fs.readFileSync(this.holderFilePath, 'utf8');
-        return JSON.parse(holdersData);
+        return holdersData? JSON.parse(holdersData): [];
     }
     private saveHolder(holders: ICreateHolder[]) {
         fs.writeFileSync(this.holderFilePath, JSON.stringify(holders, null, 2));
@@ -40,7 +40,17 @@ export class HolderRepository{
         if (!targetHolder) throw new NotFoundException(`Holder not found with this id ${id}`);
         else return targetHolder;
     }
-    // push crd on his crd 
+    addCrdToHolder(holderId: string , crdId: string){
+        const holders = this.getAll()
+        const _existHolder: ICreateHolder = holders.find((holder) => String(holder.id).trim() === holderId.trim());
+        if(_existHolder) {
+            _existHolder.credentials.push(crdId)
+            this.saveHolder(holders)
+            return true
+        }
+        else throw new NotFoundException('Issuer with this Id not exist')
+    }
     //change the crd status
     //get crd by id from the holder's crd list
 }
+

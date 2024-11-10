@@ -1,0 +1,34 @@
+[
+  {
+    "id": "e2799e1d-1c6d-416d-9368-39bc72e922a3",
+    "name": "verifierOne",
+    "verifications": []
+  },
+  {
+    "id": "fc1b844c-46e7-4f81-be00-7d80cf808cbe",
+    "name": "verifierTwo",
+    "verifications": [
+      {
+        "holderId": "ff921d96-83d0-4d0f-8f8c-7a3b7d61ec15",
+        "credentials": [
+          {
+            "crdId": "41814fc3-320e-45fb-8efb-a8748eac1f92",
+            "status": "verified"
+          },
+          {
+            "crdId": "c4b66153-0d63-450c-8d04-ce6b614c6a98",
+            "status": "expired"
+          },
+          {
+            "crdId": "d9cf3dfb-05df-497d-96e5-966c7179107b",
+            "status": "accepted"
+          },
+          {
+            "crdId": "4767ffb7-4da6-4549-9671-d9180031ea7e",
+            "status": "rejected"
+          }
+        ]
+      }
+    ]
+  }
+]

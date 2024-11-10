@@ -1,7 +1,7 @@
-import { Body, Controller, Injectable, Post, ValidationPipe } from "@nestjs/common";
+import { Body, Controller, Injectable, Param, Post, ValidationPipe } from "@nestjs/common";
 import { VerifierService } from "../service/verifier.service";
 import { CreateVerifierReqDto } from "../dto/create-request.dto";
-import { InvitationResponseDto } from "../dto/invitation-response.dto";
+import { InvitationResponseDto } from "../../holder/dto/invitation-response.dto";
 
 @Controller('verifiers')
 export class VerifierController{
@@ -11,8 +11,4 @@ export class VerifierController{
         return this.verifierService.create(createVerifierReqDto);
     }
 
-    @Post('invitation-respond')
-    responseOnInvitation(@Body(ValidationPipe) InvitationResponseDto: InvitationResponseDto) {
-        return this.verifierService.responseOnInvitation(InvitationResponseDto);
-    }
 }

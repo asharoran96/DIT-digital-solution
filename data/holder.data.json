@@ -1,0 +1,17 @@
+[
+  {
+    "name": "holderOne",
+    "id": "135a8e9e-8579-494a-b469-73f8186ff7a6",
+    "credentials": [],
+    "walletKey": "097b185G9sZGVy"
+  },
+  {
+    "name": "holderTwo",
+    "id": "ff921d96-83d0-4d0f-8f8c-7a3b7d61ec15",
+    "credentials": [
+      "d9cf3dfb-05df-497d-96e5-966c7179107b",
+      "41814fc3-320e-45fb-8efb-a8748eac1f92"
+    ],
+    "walletKey": "f21b72bG9sZGVy"
+  }
+]

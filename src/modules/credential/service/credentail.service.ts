@@ -1,46 +1,59 @@
-import { IssuerService } from "src/modules/issuer/service/issuer.service";
-import { CreateCredentialsDto } from "../dto/credential.dto";
+import { InvitationStatus } from "src/modules/verifier/enum/iveitation-status.enum";
+import { NotificationGateway } from "src/modules/notification/notification.gateway";
+import { VerifierService } from "src/modules/verifier/service/verifier.service";
 import { CredentialsRepository } from "../repository/credentail.repository";
-import { IissuerDataRecored } from "src/modules/issuer/interface/issue-data-schems.interface";
-import { Injectable } from "@nestjs/common";
+import { IssuerService } from "src/modules/issuer/service/issuer.service";
 import { HolderService } from "src/modules/holder/service/holder.service";
+import { ICrdRecordSchema } from "../interface/crd-record.interface";
+import { CreateCredentialsDto } from "../dto/credential.dto";
+import { Injectable, OnModuleInit, Scope } from "@nestjs/common";
 
-
-@Injectable()
-export class CredentialsService{
+@Injectable({ scope: Scope.DEFAULT })
+export class CredentialsService implements OnModuleInit {
     constructor(private readonly credRepo: CredentialsRepository
-     ,private readonly issuerService: IssuerService,
-     private readonly holderService: HolderService
-    ){}
-
-    create(createCrdDto: CreateCredentialsDto){
-        return new Promise(async(resolve,reject)=>{
+        , private readonly issuerService: IssuerService,
+        private readonly holderService: HolderService,
+        private readonly verifierService: VerifierService,
+        private readonly notificationGateway: NotificationGateway
+    ) { }
+    onModuleInit() {
+        this.startMonitoringExpired();
+    }
+    create(createCrdDto: CreateCredentialsDto) {
+        return new Promise(async (resolve, reject) => {
             try {
                 const _existIssuer = await this.issuerService.getById(createCrdDto.issuerId);
                 const _existHolder = await this.holderService.getHolderById(createCrdDto.subject);
-                const issuerNewCrd =  await this.credRepo.create(createCrdDto);
+                const _existVerifier = await this.verifierService.getVerifierById(createCrdDto.verifierId)
+                const issuerNewCrd = await this.credRepo.create(createCrdDto);
                 await this.issuerService.addCrdToIssuer(issuerNewCrd.issuerId, issuerNewCrd.id);
-                // push to the verifier with status received
-                
-            } catch (error:any) {
+                await this.verifierService.addCrdToVerificationArr(createCrdDto.verifierId, createCrdDto.subject, issuerNewCrd.id);
+                resolve({ message: 'The credential created successfully', data: issuerNewCrd });
+            } catch (error: any) {
                 reject(error)
             }
-
         })
-         // the subject id should be the holder id HOLDER
-         // check if that holder id is exist 
-         // push them to the verifier array with {crd id , status: {expired , accepted, rejected , pending}, holderid}
-         // after creating new verifier record in the verifier will send invitation to holder with the (get holder by id and send him to update the crd status)
-         // push them to the holder crd array (crd id , date, status)
-         // if the crd is expired will throw that this crd is expired to the api response and change the status of this crd
-         // if holder accept this ( tigger the socket to send crd data to verifer (update status)) and holder should receive crd was verified
-         // 
-         // push the crd to the holder trigger the verifier ( to send notifications ) to the holder through the socket for the crd id 
-       
+    }
+    getBySubject(subject: string) {
+        return this.credRepo.getBySubject(subject);
+    }
 
+    changeCrdStatus(credId: string, status: InvitationStatus) {
+        return this.credRepo.changeCrdStatus(credId, status);
     }
-    getBySubject(subject:string){
-        return this.credRepo.getBySubject(subject)
+    startMonitoringExpired() {
+        setInterval(() => {
+            const credentials = this.credRepo.loadAll();
+            const now = new Date();
+            const pendingCrds = credentials.filter((crd) => crd.status === InvitationStatus.Pending);
+            pendingCrds.forEach((credential: ICrdRecordSchema) => {
+                if (new Date(credential.expiryDate) < now) {
+                    const { verifierId, subject, id } = credential;
+                    this.changeCrdStatus(credential.id, InvitationStatus.Expired)
+                    this.verifierService.changeCrdStatus(verifierId, subject, id, InvitationStatus.Expired);
+                    this.notificationGateway.sendRevocationEvent(credential.subject);
+                } else { console.log(`no expired crd till now ${now}, id ${credential.id}`) };
+            });
+        }, 30000); // Check every 30s
     }
-    //verify the expiryDate 
 }

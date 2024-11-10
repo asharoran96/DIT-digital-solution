@@ -6,6 +6,7 @@ import { IssuerModule } from './modules/issuer/issuer.module';
 import { CredentialModule } from './modules/credential/credential.module';
 import { HodlerModule } from './modules/holder/holder.module';
 import { VerifierModule } from './modules/verifier/verifier.module';
+import { NotificationModule } from './modules/notification/notification.module';
 
 @Module({
   imports: [
@@ -18,7 +19,8 @@ import { VerifierModule } from './modules/verifier/verifier.module';
     IssuerModule,
     CredentialModule,
     HodlerModule,
-    VerifierModule
+    VerifierModule,
+    NotificationModule
   ],
   controllers: [AppController],
   providers: [AppService],

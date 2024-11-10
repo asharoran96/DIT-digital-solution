@@ -1,0 +1,17 @@
+[
+  {
+    "id": "0193f348-63d4-4a91-9d68-5250ebf2b35a",
+    "companyName": "testOne",
+    "issuedCredentials": []
+  },
+  {
+    "id": "dcac5a27-9e54-4c35-b685-8a6fbe7dd624",
+    "companyName": "testTwo",
+    "issuedCredentials": [
+      "41814fc3-320e-45fb-8efb-a8748eac1f92",
+      "c4b66153-0d63-450c-8d04-ce6b614c6a98",
+      "d9cf3dfb-05df-497d-96e5-966c7179107b",
+      "4767ffb7-4da6-4549-9671-d9180031ea7e"
+    ]
+  }
+]

@@ -1,6 +1,6 @@
 export interface ICreateHolder{
     id: string, 
     name: string,
-    credentials: object,
+    credentials: any[],
     walletKey: string
 }

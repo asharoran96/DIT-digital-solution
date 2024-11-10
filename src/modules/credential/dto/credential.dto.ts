@@ -8,8 +8,11 @@ export class CreateCredentialsDto{
     @IsString()
     subject: string; // is the FK with Holder id
 
+    @IsString()
+    verifierId: string
+
     @IsEnum(["ID", "PASSPORT", "BOARDING_PASS"], {
-        message: 'Valid type required'
+        message: 'Valid type required ["ID", "PASSPORT", "BOARDING_PASS"]'
     })
     type: CrdTypes
 }
