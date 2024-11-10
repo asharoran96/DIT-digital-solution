@@ -1,9 +1,9 @@
-import { InvitationStatus } from "src/modules/verifier/enum/iveitation-status.enum";
-import { NotificationGateway } from "src/modules/notification/notification.gateway";
-import { VerifierService } from "src/modules/verifier/service/verifier.service";
+import { InvitationStatus } from "../../../modules/verifier/enum/iveitation-status.enum";
+import { NotificationGateway } from "../../../modules/notification/notification.gateway";
+import { VerifierService } from "../../../modules/verifier/service/verifier.service";
 import { CredentialsRepository } from "../repository/credentail.repository";
-import { IssuerService } from "src/modules/issuer/service/issuer.service";
-import { HolderService } from "src/modules/holder/service/holder.service";
+import { IssuerService } from "../../../modules/issuer/service/issuer.service";
+import { HolderService } from "../../../modules/holder/service/holder.service";
 import { ICrdRecordSchema } from "../interface/crd-record.interface";
 import { CreateCredentialsDto } from "../dto/credential.dto";
 import { Injectable, OnModuleInit, Scope } from "@nestjs/common";

@@ -1,7 +1,7 @@
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import * as fs from 'fs'
 import * as path from "path";
-import { idGenerator, walletKeyGenerator } from "src/utils/id-generator.util";
+import { idGenerator, walletKeyGenerator } from "../../../utils/id-generator.util";
 import { ICreateHolder } from "../interface/create-holder.interface";
 @Injectable()
 export class HolderRepository{

@@ -1,10 +1,10 @@
 import { ICrdRecordSchema } from "../interface/crd-record.interface";
 import { CreateCredentialsDto } from "../dto/credential.dto";
-import { idGenerator } from "src/utils/id-generator.util";
+import { idGenerator } from "../../../utils/id-generator.util";
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import * as path from "path";
 import * as fs from 'fs';
-import { InvitationStatus } from "src/modules/verifier/enum/iveitation-status.enum";
+import { InvitationStatus } from "../../../modules/verifier/enum/iveitation-status.enum";
 
 @Injectable()
 export class CredentialsRepository{

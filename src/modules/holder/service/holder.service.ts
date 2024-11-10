@@ -1,12 +1,12 @@
-import { InvitationResponse } from "src/modules/verifier/enum/invitation-response.enum";
-import { InvitationStatus } from "src/modules/verifier/enum/iveitation-status.enum";
-import { VerifierService } from "src/modules/verifier/service/verifier.service";
+import { InvitationResponse } from "../../../modules/verifier/enum/invitation-response.enum";
+import { InvitationStatus } from "../../../modules/verifier/enum/iveitation-status.enum";
+import { VerifierService } from "../../../modules/verifier/service/verifier.service";
 import { InvitationResponseDto } from "../dto/invitation-response.dto";
 import { forwardRef, Inject, Injectable, RequestTimeoutException } from "@nestjs/common";
 import { HolderRepository } from "../repository/holder.repository";
 import { CreateHolderReqDto } from "../dto/create-request.dto";
-import { NotificationGateway } from "src/modules/notification/notification.gateway";
-import { CredentialsService } from "src/modules/credential/service/credentail.service";
+import { NotificationGateway } from "../../../modules/notification/notification.gateway";
+import { CredentialsService } from "../../../modules/credential/service/credentail.service";
 
 @Injectable()
 export class HolderService {

@@ -2,7 +2,7 @@ import { ConflictException, Injectable, NotFoundException } from "@nestjs/common
 import { IVerificationArrRecord } from "../interface/verification-record.interface";
 import { ICreateVerifier } from "../interface/create-verifier.interface";
 import { InvitationStatus } from "../enum/iveitation-status.enum";
-import { idGenerator } from "src/utils/id-generator.util";
+import { idGenerator } from "../../../utils/id-generator.util";
 import * as path from "path";
 import * as fs from 'fs';
 

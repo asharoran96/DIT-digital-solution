@@ -1,7 +1,7 @@
 import * as path from "path";
 import * as fs from 'fs'
 import { CreateIssuerDTO } from "../dto/create-issuer-request.dto";
-import { idGenerator } from "src/utils/id-generator.util";
+import { idGenerator } from "../../../utils/id-generator.util";
 import { IissuerDataRecored } from "../interface/issue-data-schems.interface";
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 
