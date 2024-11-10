@@ -7,8 +7,9 @@ Issuers, issuers can issue credentials
 
 ## Run the Application using terminal
 1. Clone the repository.
-2. Install dependencies: `npm install`
-3. Start the application: `npm run start`
+2. go to digital-solution `cd digital-solution`
+3. Install dependencies: `npm install`
+4. Start the application: `npm run start`
 
 ## Test
 Run `npm test` to execute unit tests.
