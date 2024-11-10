@@ -60,7 +60,6 @@ Issuers, issuers can issue credentials
 ├── docker-compose.yml
 ├── env
 │   └── docker.env
-├── file_tree.txt
 └── package.json
 ```
 
