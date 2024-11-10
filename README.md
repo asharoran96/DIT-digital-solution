@@ -57,9 +57,6 @@ Issuers, issuers can issue credentials
             ├── repository
             ├── service
             └── verifier.module.ts
-            ├── test
-            ├── tsconfig.build.json
-            └── tsconfig.json
 ├── docker-compose.yml
 ├── env
 │   └── docker.env
