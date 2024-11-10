@@ -9,7 +9,7 @@ import { ConflictException, Injectable, NotFoundException } from "@nestjs/common
 @Injectable()
 export class IssuerRepository {
     //TODO: change the path for the files to be in env file --> more easier using docker 
-    private readonly issuersFilePath = path.join(__dirname, '../../../..', 'data/issuer.data.json');
+    private readonly issuersFilePath = path.join(__dirname, '../../../../..', 'data/issuer.data.json');
 
     private getAllIssuer() {
         if (!fs.existsSync(this.issuersFilePath)) return [];

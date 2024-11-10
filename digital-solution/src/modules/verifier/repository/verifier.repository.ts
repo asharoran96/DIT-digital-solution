@@ -8,7 +8,7 @@ import * as fs from 'fs';
 
 @Injectable()
 export class VerifierRepository {
-    private readonly verifierFilePath = path.join(__dirname, '../../../..', 'data/verifier.data.json');
+    private readonly verifierFilePath = path.join(__dirname, '../../../../..', 'data/verifier.data.json');
     private getAll() {
         if (!fs.existsSync(this.verifierFilePath)) return [];
         const verifiersData = fs.readFileSync(this.verifierFilePath, 'utf8');

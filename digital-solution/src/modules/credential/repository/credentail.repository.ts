@@ -8,7 +8,7 @@ import { InvitationStatus } from "../../../modules/verifier/enum/iveitation-stat
 
 @Injectable()
 export class CredentialsRepository{
-    private readonly crdFilePath = path.join(__dirname, "../../../..", 'data/credential.data.json');
+    private readonly crdFilePath = path.join(__dirname, "../../../../..", 'data/credential.data.json');
 
     loadAll(){
         if(!fs.existsSync(this.crdFilePath)) return []

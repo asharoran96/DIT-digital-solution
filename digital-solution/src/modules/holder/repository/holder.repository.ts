@@ -5,7 +5,7 @@ import { idGenerator, walletKeyGenerator } from "../../../utils/id-generator.uti
 import { ICreateHolder } from "../interface/create-holder.interface";
 @Injectable()
 export class HolderRepository{
-    private readonly holderFilePath = path.join(__dirname, '../../../..', 'data/holder.data.json');
+    private readonly holderFilePath = path.join(__dirname, '../../../../..', 'data/holder.data.json');
 
     private getAll() {
         if (!fs.existsSync(this.holderFilePath)) return [];

@@ -13,7 +13,7 @@ import { NotificationModule } from './modules/notification/notification.module';
     ConfigModule.forRoot(
       {
         isGlobal: true,
-        envFilePath: 'env/.env'
+        envFilePath: '../env/.env'
       }
     ),
     IssuerModule,
