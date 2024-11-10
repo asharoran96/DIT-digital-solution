@@ -4,12 +4,14 @@ import { CreateIssuerDTO } from "../dto/create-issuer-request.dto";
 import { idGenerator } from "../../../utils/id-generator.util";
 import { IissuerDataRecored } from "../interface/issue-data-schems.interface";
 import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
 
 
 @Injectable()
 export class IssuerRepository {
     //TODO: change the path for the files to be in env file --> more easier using docker 
-    private readonly issuersFilePath = path.join(__dirname, '../../../../..', 'data/issuer.data.json');
+    constructor(private configService: ConfigService){}
+    private readonly issuersFilePath = path.resolve(this.configService.get<string>("ISSUER_DATA_FOLDER_PATH"));
 
     private getAllIssuer() {
         if (!fs.existsSync(this.issuersFilePath)) return [];

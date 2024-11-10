@@ -1,13 +1,12 @@
+import { ApiProperty } from "@nestjs/swagger";
 import { IsArray, IsNotEmpty, IsString } from "class-validator";
 
 export class CreateVerifierReqDto{
-    // @IsString()
-    // @IsNotEmpty()
-    // id:string;
-
+    @ApiProperty({
+        type: String,
+        description: "write the verifier name",        
+        default: 'verifierTest'
+    })
     @IsString()
     name:string;
-
-    // @IsArray()
-    // verifications: Object
 }

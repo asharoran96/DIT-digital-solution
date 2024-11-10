@@ -3,9 +3,11 @@ import * as fs from 'fs'
 import * as path from "path";
 import { idGenerator, walletKeyGenerator } from "../../../utils/id-generator.util";
 import { ICreateHolder } from "../interface/create-holder.interface";
+import { ConfigService } from "@nestjs/config";
 @Injectable()
 export class HolderRepository{
-    private readonly holderFilePath = path.join(__dirname, '../../../../..', 'data/holder.data.json');
+    constructor(private readonly  configService: ConfigService){}
+    private readonly holderFilePath = path.join(String(this.configService.get<string>("HOLDER_DATA_FOLDER_PATH")));
 
     private getAll() {
         if (!fs.existsSync(this.holderFilePath)) return [];
@@ -18,7 +20,6 @@ export class HolderRepository{
     }
     create(holderName: string) {
         const holders: ICreateHolder[] = this.getAll();
-        console.log(holders)
         const existHolder = this.existHolderByName(holderName);
         if (existHolder) throw new ConflictException(`Holder already exist with this ${holderName} name`);
         const newHolder: ICreateHolder = { name: holderName, id: idGenerator(), credentials: [], walletKey: walletKeyGenerator(holderName) }; // for the wallet key generate anything

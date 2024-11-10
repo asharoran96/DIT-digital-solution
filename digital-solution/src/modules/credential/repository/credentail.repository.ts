@@ -5,10 +5,12 @@ import { ConflictException, Injectable, NotFoundException } from "@nestjs/common
 import * as path from "path";
 import * as fs from 'fs';
 import { InvitationStatus } from "../../../modules/verifier/enum/iveitation-status.enum";
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class CredentialsRepository{
-    private readonly crdFilePath = path.join(__dirname, "../../../../..", 'data/credential.data.json');
+    constructor(private configService: ConfigService){}
+    private readonly crdFilePath = path.resolve(this.configService.get<string>("CREDENTIAL_DATA_FOLDER_PATH"));
 
     loadAll(){
         if(!fs.existsSync(this.crdFilePath)) return []

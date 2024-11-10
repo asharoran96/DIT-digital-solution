@@ -5,10 +5,12 @@ import { InvitationStatus } from "../enum/iveitation-status.enum";
 import { idGenerator } from "../../../utils/id-generator.util";
 import * as path from "path";
 import * as fs from 'fs';
+import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class VerifierRepository {
-    private readonly verifierFilePath = path.join(__dirname, '../../../../..', 'data/verifier.data.json');
+    constructor(private configService: ConfigService){}
+    private readonly verifierFilePath = path.resolve(this.configService.get<string>("VERIFIER_DATA_FOLDER_PATH"));
     private getAll() {
         if (!fs.existsSync(this.verifierFilePath)) return [];
         const verifiersData = fs.readFileSync(this.verifierFilePath, 'utf8');
