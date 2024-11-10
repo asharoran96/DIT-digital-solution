@@ -1,0 +1,45 @@
+[
+  {
+    "id": "0193f348-63d4-4a91-9d68-5250ebf2b35a",
+    "companyName": "testOne",
+    "issuedCredentials": []
+  },
+  {
+    "id": "dcac5a27-9e54-4c35-b685-8a6fbe7dd624",
+    "companyName": "testTwo",
+    "issuedCredentials": [
+      "41814fc3-320e-45fb-8efb-a8748eac1f92",
+      "c4b66153-0d63-450c-8d04-ce6b614c6a98",
+      "d9cf3dfb-05df-497d-96e5-966c7179107b",
+      "4767ffb7-4da6-4549-9671-d9180031ea7e",
+      "a179c40f-7b8b-4af6-9f64-9e22214110f4",
+      "e85a7203-fda2-4843-ac37-f97079f77ec2",
+      "4e2f5fce-b963-46b4-be86-005a196c90fb"
+    ]
+  },
+  {
+    "id": "f2a5f9d0-0684-45ff-8ce9-de587ac1a503",
+    "companyName": "testThree",
+    "issuedCredentials": []
+  },
+  {
+    "id": "e7b61d94-486c-4c75-b467-91a64b77bf1e",
+    "companyName": "testThjree",
+    "issuedCredentials": []
+  },
+  {
+    "id": "d9dde338-70d3-466f-826b-2410376b782b",
+    "companyName": "testTshjaaree",
+    "issuedCredentials": []
+  },
+  {
+    "id": "bf30e129-edf8-4e22-8fd3-9903692cfe3f",
+    "companyName": "test2Tshjaaree",
+    "issuedCredentials": []
+  },
+  {
+    "id": "b3f9a0f6-658d-4038-86b4-cd99a704f3e6",
+    "companyName": "companyTest",
+    "issuedCredentials": []
+  }
+]

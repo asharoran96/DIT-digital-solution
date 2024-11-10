@@ -1,0 +1,51 @@
+[
+  {
+    "id": "e2799e1d-1c6d-416d-9368-39bc72e922a3",
+    "name": "verifierOne",
+    "verifications": []
+  },
+  {
+    "id": "fc1b844c-46e7-4f81-be00-7d80cf808cbe",
+    "name": "verifierTwo",
+    "verifications": [
+      {
+        "holderId": "ff921d96-83d0-4d0f-8f8c-7a3b7d61ec15",
+        "credentials": [
+          {
+            "crdId": "41814fc3-320e-45fb-8efb-a8748eac1f92",
+            "status": "verified"
+          },
+          {
+            "crdId": "c4b66153-0d63-450c-8d04-ce6b614c6a98",
+            "status": "expired"
+          },
+          {
+            "crdId": "d9cf3dfb-05df-497d-96e5-966c7179107b",
+            "status": "accepted"
+          },
+          {
+            "crdId": "4767ffb7-4da6-4549-9671-d9180031ea7e",
+            "status": "expired"
+          },
+          {
+            "crdId": "a179c40f-7b8b-4af6-9f64-9e22214110f4",
+            "status": "expired"
+          },
+          {
+            "crdId": "e85a7203-fda2-4843-ac37-f97079f77ec2",
+            "status": "expired"
+          },
+          {
+            "crdId": "4e2f5fce-b963-46b4-be86-005a196c90fb",
+            "status": "verified"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "1a8be17f-cb2c-487b-af24-8c8dbc07e55a",
+    "name": "vesrifierTwo",
+    "verifications": []
+  }
+]
